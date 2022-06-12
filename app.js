@@ -6,6 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
 const app = express()
 const PORT = process.env.PORT
 
+require('./config/mongoose')
+
 app.get('/', (req, res) => {
   res.send("Hello~")
 })
