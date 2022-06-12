@@ -1,1 +1,8 @@
-<h2>Hello world! 這是 index</h2>
+{{#each records}}
+  <ul class="list-group list-group-horizontal">
+    <li class="list-group-item">{{this.category}}</li>
+    <li class="list-group-item">{{this.name}}</li>
+    <li class="list-group-item">{{this.date}}</li>
+    <li class="list-group-item">{{this.amount}}</li>
+  </ul>
+{{/each}}
