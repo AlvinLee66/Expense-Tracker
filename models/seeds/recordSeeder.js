@@ -9,5 +9,5 @@ db.once('open', () => {
   recordList.forEach(record => {
     Record.create(record)
   })
-  console.log('record create was done！')
+  console.log('Record create was done！')
 })
