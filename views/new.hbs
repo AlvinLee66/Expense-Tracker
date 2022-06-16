@@ -1,0 +1,52 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-8 col-lg-10 col-xl-8 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <form action="/records" method="POST">
+            <h5 class="card-title">新增一筆支出</h5>
+            <small class="text-muted form-text">＊為必填欄位</small>
+            <hr>
+              <div class="row mb-3 g-2">
+                <label for="name" class="col-md-2">內容＊：</label>
+                <input type="text" placeholder="例如：午餐吃麥當勞" name="name" id="name" style="width: 300px;" required>
+              </div>
+
+              <div class="row mb-3 g-2">
+                <label for="date" class="col-md-2">
+                  日期＊：
+                </label>
+                <input type="date" name="date" id="date" style="width: 300px;" required>
+              </div>
+
+              <div class="row mb-3 g-2">
+                <label for="amount" class="col-md-2">
+                  金額＊：
+                </label>
+                <input class="input-group" type="number" name="amount" id="amount" min="0" style="width: 300px;" required>
+              </div>
+
+              <div class="row mb-3">
+                <label for="category" class="col-md-2">
+                  類別＊：
+                </label>
+                <select class="form-select col-md-6" name="category" id="category" aria-label="Example select with button addon" style="width: 300px;">
+                  <option selected>選擇一個分類</option>
+                  <option value="1">家居物業</option>
+                  <option value="2">交通出行</option>
+                  <option value="3">休閒娛樂</option>
+                  <option value="4">餐飲食品</option>
+                  <option value="5">其他</option>
+                </select>
+              </div>            
+
+              <div class="d-grid gap-2 d-md-flex justify-content-center">
+                <button id="submitButton" class="btn btn-success" type="submit">新增</button>
+                <a class="btn btn-secondary" role="button" href="/">取消</a>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
