@@ -6,7 +6,7 @@
           <h5 class="card-title">修改此筆支出</h5>
           <small class="text-muted form-text">＊為必填欄位</small>
           <hr>
-          <form action="/records/{{ record._id }}/edit" method="POST">
+          <form action="/records/{{ record._id }}?_method=PUT" method="POST">
             <div class="row mb-3 g-2">
               <label for="name" class="col-md-2">內容＊：</label>
               <input type="text" placeholder="例如：午餐吃麥當勞" name="name" id="name" style="width: 300px;" required value="{{record.name}}">
