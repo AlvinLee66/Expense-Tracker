@@ -6,7 +6,12 @@ router.get('/', (req, res) => {
   Record.find()
     .lean()
     .sort({ _id: 'desc' })
-    .then(records => res.render('index', { records }))
+    .then(records => {
+      records.forEach(record => {
+        record.date = record.date.toISOString().split('T')[0]
+      })
+      res.render('index', { records })
+    })
     .catch(err => console.log(err))
 })
 module.exports = router
