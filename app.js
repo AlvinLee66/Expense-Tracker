@@ -32,7 +32,6 @@ app.get('/records/new', (req, res) => {
       data.forEach(category => {
         categories.push(category)
       })
-      console.log(categories)
       return res.render('new', { categories })
     })
     .catch(err => console.log(err))
@@ -54,15 +53,36 @@ app.get('/records/:id/edit', (req, res) => {
       return Category.find()
         .lean()
         .then(categories => {
-          console.log(categories)
-          console.log(typeof(categoryId))
           const category = categories.filter(category => category._id == categoryId)[0]
-          console.log(category)
+          const indexForCategory = categories.findIndex(item => item._id == categoryId)
+          delete categories[indexForCategory]
           record.date = record.date.toISOString().split('T')[0]
           res.render('edit', { record, category, categories })
         })
     })
+    .catch(err => console.log(err))
+})
 
+app.post('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  const { name, date, amount, category } = req.body
+  return Record.findById(id)
+    .then(record => {
+      record.name = name
+      record.date = date
+      record.amount = amount
+      record.category = category
+      return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
+app.post('/records/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .then(record => record.remove())
+    .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
