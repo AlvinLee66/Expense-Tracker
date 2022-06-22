@@ -5,24 +5,25 @@ const Category = require('../category')
 const db = require('../../config/mongoose')
 
 const CATEGORY = [
-  { name: '家居物業', 
-    icon: "https://fontawesome.com/icons/home?style=solid"
+  { 
+    name: '家居物業',
+    icon: 'fas fa-house fa-2x'
   },
   {
     name: '交通出行',
-    icon: "https://fontawesome.com/icons/shuttle-van?style=solid"
+    icon: 'fas fa-car-side fa-2x'
   },
   {
     name: '休閒娛樂',
-    icon: "https://fontawesome.com/icons/grin-beam?style=solid"
+    icon: 'fas fa-laugh-beam fa-2x'
   },
   {
     name: '餐飲食品',
-    icon: "https://fontawesome.com/icons/utensils?style=solid"
+    icon: 'fas fa-utensils fa-2x'
   },
   {
     name: '其他',
-    icon: "https://fontawesome.com/icons/pen?style=solid"
+    icon: 'fas fa-ellipsis-h fa-2x'
   }
 ]
 
