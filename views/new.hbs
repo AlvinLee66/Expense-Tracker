@@ -31,8 +31,8 @@
                 類別＊：
               </label>
               <select class="form-select col-md-6" name="categoryId" id="categoryId"
-                aria-label="Example select with button addon" style="width: 300px;">
-                <option selected>選擇類別</option>
+                aria-label="Example select with button addon" style="width: 300px;" required>
+                <option value="" disabled selected hidden>選擇類別</option>
                 {{#each categories}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}

@@ -28,8 +28,12 @@ const CATEGORY = [
 ]
 
 db.once('open', () => {
-  CATEGORY.forEach(category => {
-    Category.create(category)
+  return Promise.all(Array.from(CATEGORY, category => {
+    return Category.create(category)
+  }))
+  .then(() => {
+    console.log('Category create was done！')
+    process.exit()
   })
-  console.log('Category create was done！')
+  .catch(err => console.log(err))
 })
