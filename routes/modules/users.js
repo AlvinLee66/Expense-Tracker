@@ -4,12 +4,19 @@ const router = express.Router()
 const User = require('../../models/user')
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  const errorMessage = req.flash('error')
+  const errors = []
+
+  if (errorMessage.length) {
+    errors.push({ message: errorMessage[0] })
+  }
+  res.render('login', { errors })
 })
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true
 }))
 
 router.get('/register', (req, res) => {
@@ -18,31 +25,44 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const errors = []
+
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: 'Name 以外的欄位都是必填。' })
+  }
+  if (password !== confirmPassword) {
+    errors.push({ message: '密碼與確認密碼不相符！' })
+  }
+
   User.findOne({ email })
     .then(user => {
       if (user) {
-        console.log('email已經被註冊！')
-        res.render('register', {
+        errors.push({ message: '這個 Email 已經被註冊了。' })
+      }
+      if (errors.length) {
+        return res.render('register', {
+          errors,
           name,
           email,
           password,
           confirmPassword
         })
-      } else {
-        return User.create({
-          name,
-          email,
-          password
-        })
-          .then(() => res.redirect('/'))
-          .catch(err => console.log(err))
       }
+
+      return User.create({
+        name,
+        email,
+        password
+      })
+        .then(() => res.redirect('/'))
+        .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
 })
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '你已經成功登出。')
   res.redirect('/users/login')
 })
 module.exports = router
