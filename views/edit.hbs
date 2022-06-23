@@ -1,6 +1,6 @@
-<div class="container py-5">
+<div class="container py-4">
   <div class="row">
-    <div class="col-8 col-lg-10 col-xl-8 mx-auto">
+    <div class="col-6 mx-auto">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">修改此筆支出</h5>
@@ -8,30 +8,24 @@
           <hr>
           <form action="/records/{{ record._id }}?_method=PUT" method="POST">
             <div class="row mb-3 g-2">
-              <label for="name" class="col-md-2">內容＊：</label>
-              <input type="text" placeholder="例如：午餐吃麥當勞" name="name" id="name" style="width: 300px;" required value="{{record.name}}">
+              <label for="name" class="col-md-3">內容＊：</label>
+              <input type="text" class="form-control" placeholder="例如：午餐吃麥當勞" name="name" id="name" style="width: 300px;" required value="{{record.name}}">
             </div>
 
             <div class="row mb-3 g-2">
-              <label for="date" class="col-md-2">
-                日期＊：
-              </label>
-              <input type="date" name="date" id="date" style="width: 300px;" required value="{{record.date}}">
+              <label for="date" class="col-md-3">日期＊：</label>
+              <input type="date" class="form-control" name="date" id="date" style="width: 300px;" required
+              value="{{record.date}}">
             </div>
 
             <div class="row mb-3 g-2">
-              <label for="amount" class="col-md-2">
-                金額＊：
-              </label>
-              <input class="input-group" type="number" name="amount" id="amount" min="0" style="width: 300px;" required
-                value="{{record.amount}}">
+              <label for="amount" class="col-md-3">金額＊：</label>
+              <input type="number" class="form-control" name="amount" id="amount" min="0" style="width: 300px;" required value="{{record.amount}}">
             </div>
 
-            <div class="row mb-3">
-              <label for="category" class="col-md-2">
-                類別＊：
-              </label>
-              <select class="form-select col-md-6" name="categoryId" id="categoryId"
+            <div class="row mb-3 g-2">
+              <label for="category" class="col-md-3">類別＊：</label>
+              <select class="form-select" name="categoryId" id="categoryId"
                 aria-label="Example select with button addon" style="width: 300px;" required>
                 <option selected value="{{record.categoryId}}">{{category.name}}</option>
                 {{#each categories}}
