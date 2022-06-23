@@ -31,9 +31,9 @@
               <label for="category" class="col-md-2">
                 類別＊：
               </label>
-              <select class="form-select col-md-6" name="category" id="category"
+              <select class="form-select col-md-6" name="categoryId" id="categoryId"
                 aria-label="Example select with button addon" style="width: 300px;" required>
-                <option selected value="{{record.category}}">{{category.name}}</option>
+                <option selected value="{{record.categoryId}}">{{category.name}}</option>
                 {{#each categories}}
                 <option value="{{this._id}}">{{this.name}}</option>
                 {{/each}}
