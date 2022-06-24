@@ -5,7 +5,19 @@ const Category = require('../../models/category')
 
 router.get('/', (req, res) => {
   const userId = req.user._id
-  Record.find({ userId })
+  const categoryFilter = req.query.categoryFilter || 'all'
+  const conditions = {}
+  let totalAmount = 0
+  let filterName = ''
+
+  if (categoryFilter === 'all') {
+    conditions.userId = userId
+  } else {
+    conditions.userId = userId
+    conditions.categoryId = categoryFilter
+  }
+
+  Record.find(conditions)
     .lean()
     .sort({ _id: 'desc' })
     .then(records => {
@@ -14,10 +26,16 @@ router.get('/', (req, res) => {
         .then(categories => {
           records.forEach(record => {
             const categoryId = record.categoryId
-            record.icon = categories.filter(category => categoryId.equals(category._id))[0].icon
+            record.icon = categories.filter(category => category._id.equals(categoryId))[0].icon
             record.date = record.date.toISOString().split('T')[0]
+            totalAmount += record.amount
           })
-          return res.render('index', { records })
+
+          if (categoryFilter !== 'all') {
+            filterName = categories.filter(category => category._id.equals(categoryFilter))[0].name
+          }
+
+          return res.render('index', { records, categories, totalAmount, filterName })
         })
     })
     .catch(err => console.log(err))

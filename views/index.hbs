@@ -1,32 +1,68 @@
 <div class="row mt-5 mb-5">
-  <div class="col-md-8 m-auto">
-      <ul class="list-group">
-        {{#each records}}
-        <li class="list-group-item">
-          <div class="d-flex">
-            <div class="d-flex justify-content-center align-items-center col-1 me-4">
-              <i class="{{ this.icon }}"></i>
-            </div>
-            <div class="row col-5 me-2">
-              <span>{{ this.name }}</span>
-              <span>{{ this.date }}</span>
-            </div>
-            <div class="d-flex justify-content-end align-items-center col-2 me-4">
-              <span class="fs-5">{{ this.amount }}</span>
-            </div>
-            <div class="d-flex justify-content-end align-items-center col-3">
-              <a class="btn btn-outline-secondary btn-sm me-1" href="./records/{{ this._id }}/edit">修改</a>
-              <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-                <button class="btn btn-outline-danger btn-sm" type="submit">刪除</button>
-              </form>
-            </div>
-          </div>
-        </li>
-        {{/each}}
+  <div class="col-md-6 m-auto">
+    {{!-- 篩選支出 --}}
+    <div class="d-flex justify-content-center mb-3">
+      <button class="btn btn-outline-secondary dropdown-toggle form-control" type="button" id="dropdownMenuButton"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        {{#if filterName}}
+        類別：{{filterName}}
+        {{else}}
+        類別：全部
+        {{/if}}
+      </button>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 40%;">
+        <form action="/">
+          <li>
+            <button class="dropdown-item d-flex justify-content-center" type="submit" name="categoryFilter"
+              value="all">全部
+            </button>
+          </li>
+          {{#each categories}}
+          <li>
+            <button class="dropdown-item d-flex justify-content-center" type="submit" name="categoryFilter" value="{{this._id}}">
+              {{this.name}}
+            </button>
+          </li>
+          {{/each}}
+        </form>
       </ul>
-      <div class="d-flex justify-content-center mt-3">
-        <a class="btn btn-warning col-4" href="/records/new">新增支出</a>
-      </div>
-   
+    </div>
+
+    {{!-- 總金額顯示 --}}
+    <div class="show-totalAmount d-flex justify-content-between mb-4">
+      <div class="align-items-center total-amount-title fs-5">總金額:</div>
+      <div class="total-amount" style="font-size: 400%; color: #ff6600;">{{ totalAmount }}</div>
+    </div>
+
+    {{!-- 支出清單列表 --}}
+    <ul class="list-group">
+      {{#each records}}
+      <li class="list-group-item">
+        <div class="d-flex">
+          <div class="d-flex justify-content-center align-items-center col-1 me-4">
+            <i class="{{ this.icon }}"></i>
+          </div>
+          <div class="row col-5 me-2">
+            <span>{{ this.name }}</span>
+            <span>{{ this.date }}</span>
+          </div>
+          <div class="d-flex justify-content-end align-items-center col-2 me-4">
+            <span class="fs-5">{{ this.amount }}</span>
+          </div>
+          <div class="d-flex justify-content-end align-items-center col-3">
+            <a class="btn btn-outline-secondary btn-sm me-1" href="./records/{{ this._id }}/edit">修改</a>
+            <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+              <button class="btn btn-outline-danger btn-sm" type="submit">刪除</button>
+            </form>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    <div class="d-flex justify-content-center mt-3">
+      <a class="btn btn-warning col-4" href="/records/new">新增支出</a>
+    </div>
+
   </div>
 </div>
